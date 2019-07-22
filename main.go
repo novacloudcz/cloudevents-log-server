@@ -46,5 +46,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to create client, %v", err)
 	}
+	log.Printf("listening on http://localhost:%d", port)
 	log.Fatal(c.StartReceiver(context.Background(), Receive))
 }
