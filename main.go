@@ -14,7 +14,8 @@ import (
 func Receive(event cloudevents.Event) {
 	// do something with event.Context and event.Data (via event.DataAs(foo)
 	var data interface{}
-	fmt.Println("new event", event.ID(), event.DataAs(&data))
+	fmt.Println("new event", event.ID(), "; content type:", event.DataContentType(), "; media type:", event.DataMediaType())
+	event.DataAs(&data)
 	spew.Dump(data)
 }
 
