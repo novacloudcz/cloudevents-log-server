@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 
 	cloudevents "github.com/cloudevents/sdk-go"
 	"github.com/davecgh/go-spew/spew"
@@ -24,8 +26,17 @@ func main() {
 	spew.Config.DisablePointerAddresses = true
 	spew.Config.DisablePointerMethods = true
 
+	portString := os.Getenv("PORT")
+	if portString == "" {
+		portString = "80"
+	}
+	port, err := strconv.Atoi(portString)
+	if err != nil {
+		panic(err)
+	}
+
 	t, err := cloudevents.NewHTTPTransport(
-		cloudevents.WithPort(8081),
+		cloudevents.WithPort(port),
 		cloudevents.WithStructuredEncoding(),
 	)
 	if err != nil {
